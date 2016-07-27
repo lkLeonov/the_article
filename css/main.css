@@ -1,0 +1,300 @@
+@font-face {
+    font-family: "RalewayRegular";
+    src: url("/fonts/RalewayRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* Reset */
+	/* Box Model */
+
+	*, *:before, *:after {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	* { margin: 0; padding: 0; }
+	html, body {
+		height: 100%;
+		background-color: #fafafa;
+	}
+
+/*****************/
+/**** Overlay ****/
+/*****************/
+#overlay { font-family: 'RalewayRegular'; }
+#overlay {
+	font-size: 1.35em;
+	color: #95948f;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	overflow-y: auto;
+	background: rgba(255,255,255,0.96);
+	z-index: 1000;
+}
+
+/**************/
+/* UI Buttons */
+/**************/
+	#overlay .btn.close {
+		position: fixed;
+		top: 7px; right: 7px;
+		z-index: 2;
+		cursor: pointer;
+		width: 30px;
+    height: 30px;
+	}
+	#overlay .btn.close::after {
+		content: '\00D7';
+		display: block;
+		font-size: 36px;
+		font-weight: 600;
+		line-height: 36px;
+		padding: 0;
+		margin: 0;
+	}
+	#overlay .btn.nav.prev {
+		position: fixed;
+		left: 15px;
+		height: 100%;
+		width: 35px;
+		z-index: 1;
+		cursor: pointer;
+	}
+	#overlay .btn.nav.prev::after {
+		display: block;
+		content: '';
+		background-repeat: no-repeat;
+		height: 60px;
+		width: 40px;
+		position: fixed; 
+		top: 50%;
+		background-position: 5px 8px;
+	}
+	#overlay .btn.nav.next {
+		position: fixed;
+		right: 15px;
+		height: 100%;
+		width: 35px;
+		z-index: 1;
+		cursor: pointer;
+	}
+	#overlay .btn.nav.next::after {
+		display: block;
+		content: '';
+	    background-repeat: no-repeat;
+	    height: 60px;
+	    width: 40px;
+	    position: fixed;
+	    top: 50%;
+	    background-position: 5px 8px;
+	}
+
+  /******************************/
+  /* Overlay Sections & Content */
+  /******************************/
+	#overlay section {
+		width: 50%;
+		float: left;
+	}
+		#overlay section.left {
+			text-align: right;
+			display: table;
+			height: 100%;
+		}
+		#overlay section.right {
+			font-family: 'RalewayRegular';
+			padding-left: 1em;
+			padding-top: 28vh !important;
+			height: 100%;
+    		overflow-y: auto;
+		}	
+			#overlay section.left .inner { 
+				padding-right: .5em;
+				display: initial;
+				position: absolute;
+				top: 20%;
+				right: 0;
+				display: table-cell;
+				vertical-align: middle;   
+			}
+			#overlay section.right .inner {
+				padding-left: .5em;
+				width: 67%;
+			}
+				#overlay section.left img {
+					margin-top: .3em;
+					margin: 1.2em 0 1.2em 0;
+					max-width: 85%;
+					/*max-width: 450px;*/
+					max-height: 600px;
+				}
+
+			/* Heading label & text */
+			#overlay section.left .label,
+			#overlay section.right .label {
+				font-size: 60%;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				color: #bbb9b4;
+			}
+			#overlay section.right .label {
+				letter-spacing: -3px;
+		    	line-height: 56px;
+		    	font-size: 320% !important;
+		    	margin-left: -2px;
+			}
+			#overlay section.right .post-text {
+				padding-top: 1em;
+				padding-bottom: 1.5em;
+
+			}
+			#overlay section.right + .fade {
+			    position: absolute;
+			    right: 0;
+			    bottom: -2px;
+			    z-index: 1;
+			    height: 75px;
+			    width: 100%;
+			}
+
+/******************/
+/*** Animations ***/
+/******************/
+
+/* Overlay anim */
+	#overlay {
+		opacity: 0;
+		pointer-events: none;
+		-webkit-transform: perspective(1000px) translate3d(0, 0, -200px);
+		transform: perspective(1000px) translate3d(0, 0, -200px);
+		-webkit-transition: -webkit-transform 0.4s, opacity 0.4s, visibility 0s 0.4s;
+		transition: transform 0.4s, opacity 0.4s, visibility 0s 0.4s;
+		-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+		transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	}
+	#overlay.active {
+		opacity: 1;
+		pointer-events: auto;
+		-webkit-transform: perspective(1000px) translate3d(0, 0, 0px);
+		transform: perspective(1000px) translate3d(0, 0, 0px);
+		-webkit-transition: opacity 0.4s, -webkit-transform 0.4s;
+		transition: opacity 0.4s, transform 0.4s;
+	}
+
+/* Sections anims */
+	#overlay section {
+		opacity: 0;
+		-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+		transition: transform 0.3s, opacity 0.3s;
+		-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+		transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+		-webkit-transition-delay: 0.1s;
+		transition-delay: 0.1s;
+	}
+	#overlay section.left {
+		-webkit-transform: translate3d(1em,0,0);
+		transform: translate3d(1em,0,0);
+	}
+	#overlay section.right {
+		-webkit-transform: translate3d(-1em,0,0);
+		transform: translate3d(-1em,0,0);
+	}
+	#overlay.active section {
+		opacity: 1;
+		-webkit-transform: translate3d(0,0,0);
+		transform: translate3d(0,0,0);
+		-webkit-transition-delay: 0s;
+		transition-delay: 0s;
+	}
+
+/****************/
+/**** Mobile ****/
+/****************/
+@media screen and (max-width: 736px) {
+	#overlay section { width: 100%; float: none; }
+	#overlay section.left { text-align: left; }
+
+	#overlay section.right .post-text {
+		text-align: justify;
+	}
+}
+@media screen and (max-width: 736px) {
+  #overlay section.right {
+    height: initial !important;
+  }
+	#overlay .btn.close {
+		top: 10px; right: 10px;
+	}
+	#overlay .btn.close::after {
+		font-size: 60px;
+	}
+	#overlay section.left {
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	#overlay section.right { overflow: initial; }
+	#overlay section.left .inner {
+		text-align: center;
+	}
+}
+@media (max-width: 1100px) {
+  #overlay section.right .label {
+    font-size: 270%;
+    line-height: 1em;
+  }
+}
+@media (min-width: 737px) and (max-width: 1280px) {
+  #overlay section.left img {
+    max-width: 64%;
+  }
+  #overlay section.right .inner {
+    width: 75%;
+  }
+  #overlay section.right .label {
+    font-size: 180% !important;
+    line-height: 1em;
+  }
+}
+
+@media (min-width: 1921px) {
+  #overlay section.right .inner {
+    width: 55%;
+  }
+}
+@media (max-width: 736px) {
+  #overlay {
+    font-size: 1.1em;
+  }
+  #overlay section.right + .fade {
+    display: none;
+  }
+  #overlay section.left .inner {
+    display: table-cell; 
+    position: initial; 
+  }
+  #overlay section.right {
+    padding-top: 0 !important;
+    padding-left: 0;
+  }
+  #overlay section.right .inner {
+    margin: 0 auto;
+    width: 90% !important;
+  }
+  #overlay section.right .label {
+    font-size: 240% !important; 
+  }
+}
+@media (max-height: 667px) {
+  #overlay section.left .inner {
+    top: 12vh;
+  }
+}
+@media screen and (orientation:landscape) {
+  #overlay {
+    overflow:hidden;
+  } 
+}
